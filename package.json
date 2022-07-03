@@ -1,0 +1,26 @@
+{
+  "type": "module",
+  "name": "demo-graphql",
+  "version": "1.0.0",
+  "description": "demo graphQL",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon --inspect index.js"
+  },
+  "author": "yumicode",
+  "license": "ISC",
+  "dependencies": {
+    "@faker-js/faker": "^7.3.0",
+    "apollo-datasource-rest": "^3.6.1",
+    "apollo-server-express": "^3.9.0",
+    "dataloader": "^2.1.0",
+    "datasource-sql": "^2.0.1",
+    "debug": "^4.3.4",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "graphql-scalars": "^1.17.0",
+    "helmet": "^5.1.0",
+    "pg": "^8.7.3"
+  }
+}
