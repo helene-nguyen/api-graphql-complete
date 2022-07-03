@@ -1,8 +1,8 @@
 import { SQLDataSource } from 'datasource-sql';
-import { RestaurantDataMapper } from '../datamappers/restaurant';
-import { ManagerDataMapper } from '../datamappers/manager';
-import { CityDataMapper } from '../datamappers/city';
-import { CookingStyleDataMapper } from '../datamappers/cookingStyle';
+import { RestaurantDataMapper } from '../datamappers/restaurant.js';
+import { ManagerDataMapper } from '../datamappers/manager.js';
+import { CityDataMapper } from '../datamappers/city.js';
+import { CookingStyleDataMapper } from '../datamappers/cookingStyle.js';
 
 class RestoDB extends SQLDataSource {
   constructor(config) {

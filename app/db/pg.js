@@ -2,8 +2,8 @@
 import debug from 'debug';
 const logger = debug('SQL : log');
 
+//~import module
 import pg from 'pg';
-
 const pool = new pg.Pool();
 
 let queryCount = 0;

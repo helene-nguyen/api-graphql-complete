@@ -10,7 +10,7 @@ import * as resolvers from './resolvers/index.js';
 
 //~datasources
 import RestoDB from './datasources/orestoDB.js';
-import WeatherAPI from './datasources/weatherAPI.js';
+import WeatherAPI from './datasources/other_API_db/weatherAPI.js';
 
 const orestoDB = new RestoDB({
   //config connexion DB
