@@ -11,19 +11,18 @@ import { faker } from '@faker-js/faker';
 
 //~logger
 import debug from 'debug';
-const logger = debug('seeding');
+const logger = debug('Seeding : ');
 
 //~connect to db
 import { client } from '../app/db/pg.js';
 const db = client;
-
 
 db.queryCount = 0;
 
 faker.locale = 'fr';
 const NB_MANAGERS = 50;
 const NB_RESTAURANTS = 100;
-const NB_TYPES = 20;
+const NB_TYPES = 30;
 const NB_CITIES = 200;
 
 function pgQuoteEscape(row) {
@@ -53,7 +52,7 @@ function generateManagers(nbManagers) {
 }
 
 async function insertManagers(managers) {
-  await db.query('TRUNCATE TABLE manager RESTART IDENTITY CASCADE');
+  await db.query('TRUNCATE TABLE manager RESTART IDENTITY CASCADE;');
   const managerValues = managers.map(
     manager => `(
                   '${manager.firstname}',
@@ -109,7 +108,7 @@ function generateCookingStyles(nbCookingStyles) {
 }
 
 async function insertCookingStyles(cookingStyles) {
-  await db.query('TRUNCATE TABLE "cooking_style" RESTART IDENTITY CASCADE');
+  await db.query('TRUNCATE TABLE "cooking_style" RESTART IDENTITY CASCADE;');
   const cookingStylesValues = cookingStyles.map(cookingStyle => {
     const newCookingStyle = pgQuoteEscape(cookingStyle);
     return `(
@@ -124,7 +123,7 @@ async function insertCookingStyles(cookingStyles) {
               )
               VALUES
               ${cookingStylesValues}
-              RETURNING id
+              RETURNING id;
       `;
   const result = await db.query(queryStr);
   return result.rows;
@@ -132,30 +131,37 @@ async function insertCookingStyles(cookingStyles) {
 
 function generateCities(nbCities) {
   const cities = [];
+
   for (let i = 0; i < nbCities; i += 1) {
     let name = faker.address.city();
     // eslint-disable-next-line no-loop-func
+    //! BUT put a break for security
     while (cities.find(city => city.name === name)) {
       name = faker.address.city();
+      break;
     }
 
     let postalCode = faker.address.zipCode();
     // eslint-disable-next-line no-loop-func
     while (cities.find(city => city.postal_code === postalCode)) {
       postalCode = faker.address.zipCode();
+      break;
     }
+
     const city = {
       name,
       postal_code: postalCode,
       geopos: faker.address.nearbyGPSCoordinate()
     };
+
     cities.push(city);
   }
+
   return cities;
 }
 
 async function insertCities(cities) {
-  await db.query('TRUNCATE TABLE "city" RESTART IDENTITY CASCADE');
+  await db.query('TRUNCATE TABLE "city" RESTART IDENTITY CASCADE;');
   const citiesValues = cities.map(city => {
     const newCity = pgQuoteEscape(city);
     return `(
@@ -173,7 +179,7 @@ async function insertCities(cities) {
               )
               VALUES
               ${citiesValues}
-              RETURNING id
+              RETURNING id;
       `;
   const result = await db.query(queryStr);
   return result.rows;
@@ -200,7 +206,7 @@ async function generateRestaurant(nbResto, managerIds, cityIds) {
 }
 
 async function insertRestaurant(restaurants) {
-  await db.query('TRUNCATE TABLE "restaurant" RESTART IDENTITY CASCADE');
+  await db.query('TRUNCATE TABLE "restaurant" RESTART IDENTITY CASCADE;');
   const restaurantValues = restaurants.map(restaurant => {
     const newRestaurant = pgQuoteEscape(restaurant);
     return `(
@@ -223,7 +229,7 @@ async function insertRestaurant(restaurants) {
               )
               VALUES
               ${restaurantValues}
-              RETURNING id
+              RETURNING id;
       `;
   const result = await db.query(queryStr);
   return result.rows;
@@ -251,7 +257,7 @@ function generateRestaurantHasCS(restaurantIds, cookingStyleIds) {
 }
 
 async function insertRestaurantHasCS(restaurantHasCookingStyles) {
-  await db.query('TRUNCATE TABLE "restaurant_has_cooking_style" RESTART IDENTITY CASCADE');
+  await db.query('TRUNCATE TABLE "restaurant_has_cooking_style" RESTART IDENTITY CASCADE;');
   const restaurantHasCookingStyleValues = restaurantHasCookingStyles.map(
     restaurantHasCookingStyle => `(
               ${restaurantHasCookingStyle.cookingStyleId},
@@ -267,13 +273,13 @@ async function insertRestaurantHasCS(restaurantHasCookingStyles) {
           )
           VALUES
           ${restaurantHasCookingStyleValues}
-          RETURNING id
+          RETURNING id;
       `;
   const result = await db.query(queryStr);
   return result.rows;
 }
 
-(async () => {
+async function insertData() {
   /**
        * Générations d'utilisateurs fake
        * Ajout de ces utilisateurs en BDD
@@ -318,4 +324,6 @@ async function insertRestaurantHasCS(restaurantHasCookingStyles) {
   const insertedRestaurantHasCSs = await insertRestaurantHasCS(restaurantHasCookingStyles);
   logger(`${insertedRestaurantHasCSs.length} restaurant <> cooking style association inserted`);
   db.originalClient.end();
-})();
+}
+
+insertData();

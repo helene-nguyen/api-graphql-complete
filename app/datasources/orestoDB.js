@@ -16,13 +16,14 @@ class RestoDB extends SQLDataSource {
     this.cookingStyles = CookingStyleDataMapper;
   }
 
-  //pour chaque datasource son propre loader pour optimiser les requêtes
+  //for each datasource, a dataloader to increase perf
   createLoaders() {
     this.restaurants.createLoader();
     // this.managers.createLoader();
     // this.cities.createLoader();
-    // this.cookingStyles.createLoader();
+    this.cookingStyles.createLoader();
   }
 }
+
 
 export { RestoDB };

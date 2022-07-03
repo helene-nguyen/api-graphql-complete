@@ -1,6 +1,10 @@
 //~environment
 import 'dotenv/config';
 
+//~logger
+import debug from 'debug';
+const logger = debug('ENTRYPOINT');
+
 //~import modules
 import express from 'express';
 const app = express();
@@ -12,8 +16,8 @@ app.use(helmet());
 import { ApolloServer } from 'apollo-server-express';
 
 //~import schema and resolvers with config
-          import { apolloConfig } from './app/index.js';
-          const server = new ApolloServer(apolloConfig);
+import { apolloConfig } from './app/index.js';
+const server = new ApolloServer(apolloConfig);
 
 const PORT = process.env.PORT ?? 3000;
 
@@ -26,7 +30,7 @@ async function startServer() {
 
   
   await app.listen(PORT);
-  console.log(`🚀 Server launched on http://localhost:${PORT}`);
+  logger(`🚀 Server launched on http://localhost:${PORT}`);
 };
 
 startServer();

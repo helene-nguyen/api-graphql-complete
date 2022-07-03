@@ -6,11 +6,9 @@ const typeDefs = schema;
 //~get index of resolver
 import * as resolvers from './resolvers/index.js';
 
-
-
 //~datasources
-import RestoDB from './datasources/orestoDB.js';
-import WeatherAPI from './datasources/other_API_db/weatherAPI.js';
+import { RestoDB } from './datasources/orestoDB.js';
+import { WeatherAPI } from './datasources/other_API_db/weatherAPI.js';
 
 const orestoDB = new RestoDB({
   //config connexion DB
@@ -34,8 +32,8 @@ const apolloConfig = {
     weatherAPI: new WeatherAPI()
   }),
   plugins: [
-      {
-        //create loader to increase performance
+    {
+      //create loader to increase performance
       async requestDidStart() {
         orestoDB.createLoaders();
       }

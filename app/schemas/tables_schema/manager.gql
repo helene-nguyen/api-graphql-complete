@@ -1,0 +1,12 @@
+"Manager"
+type Manager {
+    id: Int!,
+    email: String!,
+    password: String!,
+    firstname: String!,
+    lastname: String!,
+    created_at:  String!,
+    updated_at: String,
+    # RELATIONS
+    restaurants: [Restaurant!]
+}

@@ -1,0 +1,15 @@
+"Restaurant"
+type Restaurant{
+    # ! not null
+    id: ID!
+    name: String!
+    description: String!
+    terrace: Boolean!
+    created_at: String!
+    updated_at: String
+    # RELATIONS
+    manager: Manager!
+    city: City!
+    # https://stackoverflow.com/questions/49903229/many-to-many-relationship-in-graphql
+    cookingStyles: [CookingStyle!]
+}

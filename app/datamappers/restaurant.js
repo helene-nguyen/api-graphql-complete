@@ -34,20 +34,35 @@ class Restaurant extends CoreDataMapper {
     return result.rows;
   }
 
-  // ApolloServer nous apporte des fonctionnalités en plus dont l'utilisation de datasource et dataloader pour optimisés les requetes
-  // express est la pour simplifié node js (on peut utiliser apolloServer juste pour ca fonctionnalité de datasource)
+  async findByCookingStyle(label) {
+    // source :https://stackoverflow.com/questions/3395339/sql-how-do-i-query-a-many-to-many-relationship
+    const preparedQuery = {
+      text: `
+            SELECT DISTINCT CS.label, R.name
+            FROM "cooking_style" AS CS
+            JOIN "restaurant_has_cooking_style" as RCS ON CS.id = RCS.restaurant_id
+            JOIN "${this.tableName}" AS R ON RCS.cooking_style_id = R.id
+            WHERE CS.label = $1;`,
+      values: [label]
+    };
 
-  // Méthode lié au dataLoader
+    const result = await this.client.query(preparedQuery);
+
+    return result.rows;
+  }
+
+  //! LOADER (for perf queries datas)
   async createLoader() {
     // super.createLoader();
-    //mise en place d'une jointure
+    //todo ask why ?
+    //tableau d'id car pour tous les restaurant, on veut la ville
+    // ids => tableau d'id, s'il en trouve un ou plusieurs, il le renvoie
     this.cityIdLoader = new DataLoader(async ids => {
-      // Tableau d'id
-      // je vais aller chercher la ville par son id
+      //on réutilise une méthode existante
       const records = await this.findByCity(ids);
 
-      const result = ids.map(id => records.filter(record => record.id == id));
-      return result;
+      // on attend un retour de tableau
+      return ids.map(id => records.filter(record => record.id === id));
     });
   }
 }

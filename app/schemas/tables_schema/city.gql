@@ -1,0 +1,11 @@
+"City"
+type City{
+    id: Int!
+    name: String!
+    postal_code:String!
+    created_at: String!
+    updated_at: String
+    weather: Weather
+    # RELATIONS
+    restaurants: [Restaurant]
+}

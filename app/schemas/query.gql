@@ -1,0 +1,14 @@
+type Query {
+    getAllRestaurants: [Restaurant]
+    getRestaurant(id: ID!): Restaurant
+    getRestaurantByCookingStyle(label: String!): [Restaurant]
+
+    getAllManagers: [Manager]
+    getManager(id: ID!): Manager
+
+    getAllCities: [City]
+    getCity(id: ID!): City
+
+    getCookingStyles: [CookingStyle]
+    getStyleByName(label: String!): CookingStyle
+}

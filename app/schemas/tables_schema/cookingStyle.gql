@@ -1,0 +1,10 @@
+"Cooking style"
+type CookingStyle{
+    id: ID!
+    label: String!
+    created_at: String!
+    updated_at: String
+    # RELATIONS
+    #source https://docs.fauna.com/fauna/current/api/graphql/relationships
+    restaurants: [Restaurant!]
+}

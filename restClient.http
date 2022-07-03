@@ -1,1 +1,188 @@
 @endpoint = http://localhost:4200/graphql
+
+
+# !: RESTAURANT
+### 
+POST {{endpoint}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query getAllRestaurants {
+    getAllRestaurants {
+        name
+        description
+        cookingStyles {
+            label
+        }
+    }
+}
+
+### 
+POST {{ endpoint }}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query getRestaurant($id:ID!) {
+    getRestaurant(id: $id) {
+        name
+        description
+        cookingStyles {
+            label
+        }
+    }
+}
+
+{"id":1}
+
+
+### 
+
+POST {{ endpoint }}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query getRestaurantByCookingStyle($label: String!) {
+    getRestaurantByCookingStyle(label: $label){
+        name
+    }
+}
+
+{"label": "Albanie"}
+
+# !: MANAGER
+
+###
+POST {{ endpoint }}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query getAllManagers {
+     getAllManagers {
+        firstname
+        lastname
+        email
+    }
+}
+
+### 
+POST {{ endpoint }}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query getManager($id: ID!) {
+     getManager(id: $id) {
+        firstname
+        lastname
+        email
+    }
+}
+
+{"id":3}
+
+# !: CITY
+
+### 
+POST {{ endpoint }}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query GetAllCities {
+    getAllCities{
+        id
+        name
+        restaurants{
+            id
+            name
+        }
+    }
+}
+
+### 
+POST {{ endpoint }}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query GetAllRestaurantByCity($CityId: ID!) {
+    getCity(id: $CityId){
+        id
+        name
+        restaurants{
+            id
+            name
+        }
+    }
+}
+
+{
+    "CityId":193
+}
+
+# !: COOKING STYLE
+
+### 
+POST {{ endpoint }}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query GetCookingStyles {
+    getCookingStyles{
+        label
+    }
+}
+
+
+### 
+POST {{ endpoint }}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query GetStyleByName($label: String!) {
+  getStyleByName(label: $label) {
+    label
+    id
+    restaurants{
+      name
+      city{
+        name
+      }
+    }
+  }
+}
+
+{
+ "label":"Cuba"
+}
+
+##################################
+
+# !: API WEATHER THIRD PARTY
+
+### KEY Disabled
+POST {{ endpoint }}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query GetCity($getCityId: ID!) {
+  getCity(id: $getCityId) {
+    name
+    weather{
+        LocalizedName
+    }
+  }
+}
+
+{
+  "getCityId": 3
+}
+
+
+### TEST API here
+
+GET https://pokeapi.co/api/v2/pokemon/ditto
+
+###
+GET https://ghibliapi.herokuapp.com/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49
+
+
+### TEST weather API
+GET http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=Egf1hkjXCK8bKk3iTgjPvH3NV92uf7ES&q=-72.9477%2C7.4994 HTTP/1.1

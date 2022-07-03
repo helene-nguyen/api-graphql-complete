@@ -1,0 +1,4 @@
+type Weather {
+    # date: DateTime!,
+    LocalizedName: String
+}

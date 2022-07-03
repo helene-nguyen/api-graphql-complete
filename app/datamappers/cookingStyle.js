@@ -1,6 +1,7 @@
 //~import modules
 import { CoreDataMapper } from './coreDataMapper.js';
 import { client } from '../db/pg.js';
+import DataLoader from 'dataloader';
 
 //~create class
 class CookingStyle extends CoreDataMapper {
@@ -31,6 +32,21 @@ class CookingStyle extends CoreDataMapper {
     };
     const result = await this.client.query(preparedQuery);
     return result.rows[0];
+  }
+
+  //! LOADER (for datas)
+  async createLoader() {
+    // super.createLoader();
+    //todo ask why ?
+    //tableau d'id car pour tous les restaurant, on veut la ville
+    // ids => tableau d'id, s'il en trouve un ou plusieurs, il le renvoie
+    this.cityIdLoader = new DataLoader(async ids => {
+      //on réutilise une méthode existante
+      const records = await this.findByRestaurant(ids);
+
+      // on attend un retour de tableau
+      return ids.map(id => records.filter(record => record.id === id));
+    });
   }
 }
 
