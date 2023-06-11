@@ -1,6 +1,6 @@
 //~logger
 import debug from 'debug';
-const logger = debug('SQL : log');
+// const logger = debug('SQL : log');
 
 //~import module
 import pg from 'pg';
@@ -15,7 +15,7 @@ const client =  {
   async query(...params) {
     // debug(...params);
     queryCount += 1;
-    logger(`Req n°${queryCount}`);
+    // logger(`Req n°${queryCount}`);
 
     return this.originalClient.query(...params);
   }

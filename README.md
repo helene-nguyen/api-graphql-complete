@@ -2,57 +2,56 @@
 
 Author: Yumicode
 
-Développement d'une API GraphQL lors de la formation chez [O'clock](https://oclock.io/formations) en spécialisation Data & API avec @Benjamin Nougadère
+Developing a GraphQL API during the training at [O'clock](https://oclock.io/formations) in Data & API specialization with @Benjamin Nougadère
 
 ## Apollo Server Express & Datasources / Dataloaders
 
 ## Introduction
 
-Nous allons utiliser Apollo Server Express pour lier le GraphQL au serveur Express pour son utilisation.
+We will be using Apollo Server Express to connect GraphQL to the Express server for its usage.
 
-GraphQL (Graph Query Language) est un langage de requêtes et un environnement d'exécution open source. 
+GraphQL (Graph Query Language) is a query language and execution environment that is open source.
 
-Il propose une alternative aux API REST (ou RESTful) qui sont eux une architecture qui permettent de faire des requêtes sur l'URI(Uniform Resource Identifier) d'une ressource qui renvoie une réponse dont le `body` est formaté pour la plupart en JSON.
+It offers an alternative to RESTful APIs, which are an architecture that allows querying the URI (Uniform Resource Identifier) of a resource, returning a response with the `body` mostly formatted as JSON.
 
-Dans les deux cas, et comme pour la plupart des cas, le protocole de transfert HTTP est utilisé avec ses méthodes **GET, HEAD, POST, PUT, PATCH, DELETE, CONNECT, OPTIONS et TRACE**.
+In both cases, and as is the case for most situations, the HTTP transfer protocol is used with its methods **GET, HEAD, POST, PUT, PATCH, DELETE, CONNECT, OPTIONS, and TRACE**.
 
-Grâce à GraphQL, il n'y aura qu'un seul URI utilisé et la méthode sera `POST`. Tout est centralisé et grâce à [Apollo Server Express](https://www.apollographql.com/docs/apollo-server), nous allons optimiser les requêtes et par extension la performance de notre API.
+With GraphQL, there will only be a single URI used, and the method will be `POST`. Everything is centralized, and with [Apollo Server Express](https://www.apollographql.com/docs/apollo-server), we will optimize the queries and, by extension, the performance of our API.
 
-## Initialisation du projet
+## Project Setup
 
-Pour ce projet, nous allons utiliser le serveur Express et lier le serveur Apollo Server pour pouvoir utiliser GraphQL.
+For this project, we will be using the Express server and connecting the Apollo Server to be able to use GraphQL.
 
 ```
 npm init
 ```
 
-Et les dépendances dont ont aura besoin sont les suivantes :
+And the dependencies we will need are as follows:
 
 ```
 npm i  express pg dotenv apollo-server-express apollo-datasource-rest dataloader datasource-sql graphql-scalars
 ```
 
-## Mise en place de la base de données et connexion
+## Setting up the Database and Connection
 
-Détails [ici](./__docs__/01-database.md)
+Details [here](./__docs__/01-database.md)
 
-## Création des requêtes
+## Creating Queries
 
-## Datasources et Dataloaders
+## Datasources and Dataloaders
 
 ### Datasources
 
-### Datasource API tierce
+### Third-party API Datasource
 
 ## Resolvers
 
 ## Schemas
 
+---
 
-___
+Various sources:
 
-Sources diverses :
+[GraphQL: What is it?](https://www.redhat.com/fr/topics/api/what-is-graphql)
 
-[GraphQL : qu'est-ce que c'est ?](https://www.redhat.com/fr/topics/api/what-is-graphql)
-
-[RESTful : qu'est-ce que c'est ?](https://fr.wikipedia.org/wiki/Representational_state_transfer)
+[RESTful: What is it?](https://fr.wikipedia.org/wiki/Representational_state_transfer)

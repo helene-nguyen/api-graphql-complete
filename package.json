@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon --inspect index.js"
+    "dev": "nodemon --inspect index.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "author": "yumicode",
   "license": "ISC",
@@ -22,5 +23,11 @@
     "graphql-scalars": "^1.17.0",
     "helmet": "^5.1.0",
     "pg": "^8.7.3"
+  },
+  "devDependencies": {
+    "jest": "^28.1.2"
+  },
+  "jest": {
+    "collectCoverage":true
   }
 }
